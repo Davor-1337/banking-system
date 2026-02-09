@@ -38,7 +38,7 @@ POST /deposit
   "timestamp": 1663237199324
 }
 
-Response: {"error": 0, "balance": 100}
+Response: {"error": 0, "balance": 650}
 ```
 
 **3. Withdraw**
@@ -51,7 +51,7 @@ POST /withdraw
   "timestamp": 1663237199324
 }
 
-Response: {"error": 0, "balance": 70}
+Response: {"error": 0, "balance": 620}
 ```
 
 **Note:** Sending the same transaction `id` twice returns the same result.
