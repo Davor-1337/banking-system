@@ -29,10 +29,10 @@ message ValidateTokenResponse {
 
 
 message DepositRequest {
-  string token = 1;          // validacija korisnika
-  string transaction_id = 2; // jedinstveni ID transakcije
-  double amount = 3;         // iznos
-  int64 timestamp = 4;       // vrijeme transakcije
+  string token = 1;          
+  string transaction_id = 2; 
+  double amount = 3;         
+  int64 timestamp = 4;       
 }
 
 
@@ -43,8 +43,8 @@ message DepositResponse {
 
 
 message WithdrawRequest {
-    string token = 1;          // dodaj token
-    string transaction_id = 2; // idempotency
+    string token = 1;          
+    string transaction_id = 2; 
     double amount = 3;
     int64 timestamp = 4;
 }
