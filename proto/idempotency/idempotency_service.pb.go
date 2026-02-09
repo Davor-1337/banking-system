@@ -21,7 +21,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// Provera da li transakcija već postoji
+
 type CheckTransactionRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	UserId        int32                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
@@ -55,7 +55,7 @@ func (x *CheckTransactionRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CheckTransactionRequest.ProtoReflect.Descriptor instead.
+
 func (*CheckTransactionRequest) Descriptor() ([]byte, []int) {
 	return file_proto_idempotency_service_proto_rawDescGZIP(), []int{0}
 }
@@ -107,7 +107,7 @@ func (x *CheckTransactionResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CheckTransactionResponse.ProtoReflect.Descriptor instead.
+
 func (*CheckTransactionResponse) Descriptor() ([]byte, []int) {
 	return file_proto_idempotency_service_proto_rawDescGZIP(), []int{1}
 }
@@ -126,7 +126,7 @@ func (x *CheckTransactionResponse) GetCachedBalance() float64 {
 	return 0
 }
 
-// Čuvanje transakcije u cache
+
 type SaveTransactionRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	UserId        int32                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
@@ -161,7 +161,7 @@ func (x *SaveTransactionRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SaveTransactionRequest.ProtoReflect.Descriptor instead.
+
 func (*SaveTransactionRequest) Descriptor() ([]byte, []int) {
 	return file_proto_idempotency_service_proto_rawDescGZIP(), []int{2}
 }
@@ -219,7 +219,7 @@ func (x *SaveTransactionResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SaveTransactionResponse.ProtoReflect.Descriptor instead.
+
 func (*SaveTransactionResponse) Descriptor() ([]byte, []int) {
 	return file_proto_idempotency_service_proto_rawDescGZIP(), []int{3}
 }
