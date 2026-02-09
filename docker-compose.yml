@@ -1,0 +1,91 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: banking_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: banking
+      MYSQL_USER: bankuser
+      MYSQL_PASSWORD: bankpass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    networks:
+      - banking-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: banking_redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - banking-network
+
+  db-service:
+    build:
+      context: .
+      dockerfile: ./db-service/Dockerfile
+    container_name: banking_db_service
+    environment:
+      MYSQL_HOST: mysql:3306
+      MYSQL_USER: bankuser
+      MYSQL_PASSWORD: bankpass
+      MYSQL_DATABASE: banking
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "50051:50051"
+    networks:
+      - banking-network
+
+  idempotency-service:
+    build:
+      context: .
+      dockerfile: ./idempotency-service/Dockerfile
+    container_name: banking_idempotency_service
+    environment:
+      REDIS_HOST: redis:6379
+    depends_on:
+      redis:
+        condition: service_healthy
+    ports:
+      - "50052:50052"
+    networks:
+      - banking-network
+
+  web-server:
+    build:
+      context: .
+      dockerfile: ./web-server/Dockerfile
+    container_name: banking_web_server
+    environment:
+      DB_SERVICE_HOST: db-service:50051
+      IDEMPOTENCY_SERVICE_HOST: idempotency-service:50052
+    depends_on:
+      db-service:
+        condition: service_started
+      idempotency-service:
+        condition: service_started
+    ports:
+      - "8080:8080"
+    networks:
+      - banking-network
+
+volumes:
+  mysql_data:
+
+networks:
+  banking-network:
+    driver: bridge

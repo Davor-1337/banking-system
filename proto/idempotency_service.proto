@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package idempotency;
+
+option go_package = "proto/idempotency;idempotency";
+
+
+
+message CheckTransactionRequest {
+  int32 user_id = 1;
+  string transaction_id = 2;
+}
+
+message CheckTransactionResponse {
+  bool exists = 1;
+  double cached_balance = 2;
+}
+
+
+message SaveTransactionRequest {
+  int32 user_id = 1;
+  string transaction_id = 2;
+  double balance = 3;
+}
+
+message SaveTransactionResponse {
+  bool success = 1;
+}
+
+
+service IdempotencyService {
+  rpc CheckTransaction(CheckTransactionRequest) returns (CheckTransactionResponse);
+  rpc SaveTransaction(SaveTransactionRequest) returns (SaveTransactionResponse);
+}
