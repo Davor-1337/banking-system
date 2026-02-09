@@ -27,7 +27,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 //
-// Idempotency Service definicija
+
 type IdempotencyServiceClient interface {
 	CheckTransaction(ctx context.Context, in *CheckTransactionRequest, opts ...grpc.CallOption) (*CheckTransactionResponse, error)
 	SaveTransaction(ctx context.Context, in *SaveTransactionRequest, opts ...grpc.CallOption) (*SaveTransactionResponse, error)
@@ -65,7 +65,7 @@ func (c *idempotencyServiceClient) SaveTransaction(ctx context.Context, in *Save
 // All implementations must embed UnimplementedIdempotencyServiceServer
 // for forward compatibility.
 //
-// Idempotency Service definicija
+
 type IdempotencyServiceServer interface {
 	CheckTransaction(context.Context, *CheckTransactionRequest) (*CheckTransactionResponse, error)
 	SaveTransaction(context.Context, *SaveTransactionRequest) (*SaveTransactionResponse, error)
